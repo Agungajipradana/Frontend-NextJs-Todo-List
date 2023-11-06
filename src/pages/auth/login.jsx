@@ -18,7 +18,7 @@ const LoginPage = () => {
         password: values.password,
       };
       dispatch(UserSigninRequest(payload));
-      router.push("/project");
+      router.push("/");
     },
   });
 

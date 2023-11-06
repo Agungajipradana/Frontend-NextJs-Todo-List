@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/lib/axios";
 import { getCookie } from "cookies-next";
+import axios from "axios";
 
 const signup = async (data) => {
   try {

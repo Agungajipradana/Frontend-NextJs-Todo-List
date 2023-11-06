@@ -1,0 +1,77 @@
+import { axiosInstance } from "@/lib/axios";
+
+const Create = async (data) => {
+  try {
+    const result = await axiosInstance.post("/api/project", data);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const FindOne = async (id) => {
+  try {
+    const result = await axiosInstance.get(`/api/project/${id}`);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+const Update = async (id) => {
+  try {
+    const result = await axiosInstance.put(`/api/project/${id}`);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const Deleted = async (id) => {
+  try {
+    const result = await axiosInstance.delete(`/api/project/${id}`);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+// const List = async (payload) => {
+//   try {
+//     const result = await axiosInstance.get(`/api/project`, payload);
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     return await error;
+//   }
+// };
+
+const List = async () => {
+  try {
+    const result = await axiosInstance.get("/api/project");
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+const Search = async () => {
+  try {
+    const result = await axiosInstance.get("/api/project");
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const ProjectNameApi = {
+  Create,
+  FindOne,
+  Update,
+  Deleted,
+  List,
+  Search,
+};
+
+export default ProjectNameApi;
