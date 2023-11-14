@@ -5,7 +5,8 @@ const getFromCookies = (key) => {
   if (!key || typeof window === "undefined") {
     return "";
   }
-  return getCookie(key);
+  const cookieValue = getCookie(key);
+  return typeof cookieValue === "string" ? cookieValue : "";
 };
 
 // Use Session Storage
@@ -16,9 +17,12 @@ const getFromCookies = (key) => {
 //   return sessionStorage.getItem(key);
 // };
 
+const profileCookieValue = getFromCookies("profile");
+// console.log("Profile Cookie Value:", profileCookieValue);
+
 // Use cookie
 const INIT_STATE = {
-  userProfile: getFromCookies("profile") ? JSON.parse(getCookie("profile")) : null,
+  userProfile: profileCookieValue ? profileCookieValue : null,
   // userSignup: null,
 };
 

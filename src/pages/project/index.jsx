@@ -37,7 +37,38 @@ const Project = () => {
 
   return (
     <>
-      {displayCreate ? (
+      <div>
+        <button onClick={logout} className="bg-black text-white rounded-full py-1 px-1 ">
+          Logout
+        </button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+          </tr>
+        </thead>
+        {projects &&
+          projects.map((item) => {
+            return (
+              <tbody key={item.id}>
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <div className="flex items-center">{item.title}</div>
+                  </td>
+                </tr>
+              </tbody>
+            );
+          })}
+      </table>
+    </>
+  );
+};
+
+export default Project;
+
+/*
+   {displayCreate ? (
         <ProjectCreate setRefresh={setRefresh} setDisplay={setDisplayCreate} />
       ) : (
         <>
@@ -110,11 +141,11 @@ const Project = () => {
                       <td className="">
                         <div className="flex items-center pl-5">
                           {projects &&
-                            projects.map((item) => {
+                            projects.map((item) => (
                               <p className="text-base font-medium leading-none text-gray-700 mr-2" key={item.id}>
                                 {item.title}
-                              </p>;
-                            })}
+                              </p>
+                            ))}
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path
                               d="M6.66669 9.33342C6.88394 9.55515 7.14325 9.73131 7.42944 9.85156C7.71562 9.97182 8.02293 10.0338 8.33335 10.0338C8.64378 10.0338 8.95108 9.97182 9.23727 9.85156C9.52345 9.73131 9.78277 9.55515 10 9.33342L12.6667 6.66676C13.1087 6.22473 13.357 5.62521 13.357 5.00009C13.357 4.37497 13.1087 3.77545 12.6667 3.33342C12.2247 2.89139 11.6251 2.64307 11 2.64307C10.3749 2.64307 9.77538 2.89139 9.33335 3.33342L9.00002 3.66676"
@@ -502,16 +533,12 @@ const Project = () => {
                           </div>
                         </div>
                       </td>
-                    </tr> */}
-                  </tbody>
-                </table>
+                    </tr> }
+                    </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </>
-      )}
-    </>
-  );
-};
-
-export default Project;
+            </>
+          )}
+*/

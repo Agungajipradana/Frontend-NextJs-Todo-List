@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
+import axios from "axios";
 
 const Create = async (data) => {
   try {
@@ -49,12 +50,22 @@ const Deleted = async (id) => {
 const List = async () => {
   try {
     const result = await axiosInstance.get("/api/project");
-    console.log(result.data);
+    // console.log(result.data);
     return result.data;
   } catch (error) {
     return error;
   }
 };
+
+// export const GetAllData = async () => {
+//   try {
+//     const response = await axios.get("http://localhost:3002/api/project");
+//     console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     return error;
+//   }
+// };
 
 const Search = async () => {
   try {

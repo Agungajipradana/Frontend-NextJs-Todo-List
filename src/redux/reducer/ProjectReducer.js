@@ -17,7 +17,7 @@ const ProjectReduce = (state = init_state, action) => {
       return AddProject(state, action);
     case ActionType.FIND_PROJECT_REQUEST:
       return { ...state };
-    case ActionType.FIND_PROJECT_REQUEST:
+    case ActionType.FIND_PROJECT_SUCCESS:
       return FindProject(state, action);
     case ActionType.EDIT_PROJECT_REQUEST:
       return { ...state };

@@ -18,6 +18,7 @@ function* handleSignin(action) {
   const { payload } = action;
   try {
     const result = yield call(UserApi.signin, payload);
+    console.log("Signin Result:", result);
     if (Object.keys(result.data).length === 0) {
       yield put(UserSigninFailed({ message: "email or password not match, try again" }));
     } else {
@@ -25,6 +26,7 @@ function* handleSignin(action) {
       const profile = yield call(UserApi.profile);
       setCookie("profile", JSON.stringify(profile.data));
       yield put(UserSigninSuccess(profile.data));
+      console.log("Signin Success Payload:", profile.data);
     }
   } catch (error) {
     yield put(UserSigninFailed(error));

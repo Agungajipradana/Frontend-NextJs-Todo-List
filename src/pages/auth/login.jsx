@@ -67,10 +67,6 @@ const LoginPage = () => {
               </Link>
             </p>
           </form>
-
-          {/* <a href="#" className="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300">
-            FORGOT PASSWORD?
-          </a> */}
         </div>
       </div>
     </>
