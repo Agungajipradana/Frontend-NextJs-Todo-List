@@ -22,8 +22,8 @@ const signin = async (data) => {
 
 // Use Cookie
 const profile = async () => {
-  axiosInstance.defaults.headers.common = { Authorization: getCookie("token") };
   try {
+    axiosInstance.defaults.headers.common = { Authorization: getCookie("token") };
     const result = await axiosInstance.get("/api/users/current");
     return result;
   } catch (error) {

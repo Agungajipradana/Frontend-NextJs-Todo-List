@@ -56,7 +56,7 @@ const UserSignin = (state, action) => {
   if (action.payload) {
     return {
       ...state,
-      UserProfile: action.payload,
+      userProfile: action.payload,
     };
   } else {
     return {
@@ -76,7 +76,7 @@ const UserSignup = (state, action) => {
 const UserSignout = (state, action) => {
   return {
     ...state,
-    UserProfile: null,
+    userProfile: null,
   };
 };
 
