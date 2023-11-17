@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/lib/axios";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const Create = async (data) => {
   try {
@@ -48,6 +49,7 @@ const Deleted = async (id) => {
 // };
 
 const List = async () => {
+  // axiosInstance.defaults.headers.common = { Authorization: getCookie("token") };
   try {
     const result = await axiosInstance.get("/api/project");
     // console.log(result.data);

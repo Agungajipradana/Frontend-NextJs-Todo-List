@@ -1,11 +1,12 @@
 import { UserSignoutRequest } from "@/redux/action/UserAction";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { ListProjectRequest } from "@/redux/action/ProjectAction";
 import ProjectCreate from "./ProjectCreate";
+import ProjectUpdate from "./ProjectUpdate";
 
 const Project = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Project = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ title: "" });
+  const [showModalUpdate, setShowModalUpdate] = useState(false);
+  const modalUpdateRef = useRef();
 
   const logout = () => {
     dispatch(UserSignoutRequest());
@@ -37,6 +40,32 @@ const Project = () => {
   const handleAddProjectClick = () => {
     setShowModal(true);
   };
+
+  const handleModalUpdate = (projectId) => {
+    console.log("handleModalUpdate called with projectId:", projectId);
+    setShowModalUpdate(true);
+    setId(projectId);
+  };
+
+  const handleCloseModalUpdate = () => {
+    setShowModalUpdate(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalUpdateRef.current && !modalUpdateRef.current.contains(event.target)) {
+        handleCloseModalUpdate();
+      }
+    };
+
+    if (showModalUpdate) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showModalUpdate]);
 
   return (
     <>
@@ -193,46 +222,54 @@ const Project = () => {
                           </div>
                         </td>
                         <td className="pl-5">
-                          <button className="py-3 px-3 text-sm focus:outline-none leading-none text-red-700 bg-red-100 rounded">Due today at 18:00</button>
+                          <p className="py-3 px-3 text-sm focus:outline-none leading-none text-red-700 bg-red-100 rounded">{item.createdAt ? item.createdAt : "Error"}</p>
                         </td>
                         <td className="pl-4">
                           <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">View</button>
                         </td>
                         <td>
-                          <div className="relative px-5 pt-2">
-                            <button className="focus:ring-2 rounded-md focus:outline-none" role="button" aria-label="option">
-                              <svg className="dropbtn" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path
-                                  d="M4.16667 10.8332C4.62691 10.8332 5 10.4601 5 9.99984C5 9.5396 4.62691 9.1665 4.16667 9.1665C3.70643 9.1665 3.33334 9.5396 3.33334 9.99984C3.33334 10.4601 3.70643 10.8332 4.16667 10.8332Z"
-                                  stroke="#9CA3AF"
-                                  strokeWidth="1.25"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                ></path>
-                                <path
-                                  d="M10 10.8332C10.4602 10.8332 10.8333 10.4601 10.8333 9.99984C10.8333 9.5396 10.4602 9.1665 10 9.1665C9.53976 9.1665 9.16666 9.5396 9.16666 9.99984C9.16666 10.4601 9.53976 10.8332 10 10.8332Z"
-                                  stroke="#9CA3AF"
-                                  strokeWidth="1.25"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                ></path>
-                                <path
-                                  d="M15.8333 10.8332C16.2936 10.8332 16.6667 10.4601 16.6667 9.99984C16.6667 9.5396 16.2936 9.1665 15.8333 9.1665C15.3731 9.1665 15 9.5396 15 9.99984C15 10.4601 15.3731 10.8332 15.8333 10.8332Z"
-                                  stroke="#9CA3AF"
-                                  strokeWidth="1.25"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                ></path>
-                              </svg>
-                            </button>
-                            <div className="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 hidden">
-                              <div tabIndex="0" className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white">
-                                <p>Edit</p>
-                              </div>
-                              <div tabIndex="0" className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white">
-                                <p>Delete</p>
-                              </div>
+                          <div className="px-5 pt-2">
+                            <div className="relative ">
+                              <button onClick={() => handleModalUpdate(item.id)} className="focus:ring-2 rounded-md focus:outline-none" role="button" aria-label="option">
+                                <svg className="dropbtn" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                  <path
+                                    d="M4.16667 10.8332C4.62691 10.8332 5 10.4601 5 9.99984C5 9.5396 4.62691 9.1665 4.16667 9.1665C3.70643 9.1665 3.33334 9.5396 3.33334 9.99984C3.33334 10.4601 3.70643 10.8332 4.16667 10.8332Z"
+                                    stroke="#9CA3AF"
+                                    strokeWidth="1.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  ></path>
+                                  <path
+                                    d="M10 10.8332C10.4602 10.8332 10.8333 10.4601 10.8333 9.99984C10.8333 9.5396 10.4602 9.1665 10 9.1665C9.53976 9.1665 9.16666 9.5396 9.16666 9.99984C9.16666 10.4601 9.53976 10.8332 10 10.8332Z"
+                                    stroke="#9CA3AF"
+                                    strokeWidth="1.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  ></path>
+                                  <path
+                                    d="M15.8333 10.8332C16.2936 10.8332 16.6667 10.4601 16.6667 9.99984C16.6667 9.5396 16.2936 9.1665 15.8333 9.1665C15.3731 9.1665 15 9.5396 15 9.99984C15 10.4601 15.3731 10.8332 15.8333 10.8332Z"
+                                    stroke="#9CA3AF"
+                                    strokeWidth="1.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  ></path>
+                                </svg>
+                              </button>
                             </div>
+
+                            {showModalUpdate && id === item.id && (
+                              <div ref={modalUpdateRef} role="alert" className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+                                <div className="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 ">
+                                  <div tabIndex="0" className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white">
+                                    <p>Edit</p>
+                                    {showModal && <ProjectUpdate setRefresh={setRefresh} setDisplay={() => setShowModal(false)} formData={formData} id={id} />}
+                                  </div>
+                                  <div tabIndex="0" className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white">
+                                    <p>Delete</p>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </td>
                       </tr>
