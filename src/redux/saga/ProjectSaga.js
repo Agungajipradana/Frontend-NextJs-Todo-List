@@ -1,5 +1,5 @@
 import ProjectNameApi from "@/features/project/ProjectNameApi";
-import { AddProjectFailed, AddProjectSuccess, DeleteProjectFailed, DeleteProjectSuccess, EDIT_PROJECT_FAILED, EditProjectSuccess, FindProjectFailed, FindProjectSuccess, ListProjectFailed, ListProjectSuccess } from "../action/ProjectAction";
+import { AddProjectFailed, AddProjectSuccess, DeleteProjectFailed, DeleteProjectSuccess, EditProjectFailed, EditProjectSuccess, FindProjectFailed, FindProjectSuccess, ListProjectFailed, ListProjectSuccess } from "../action/ProjectAction";
 import { call, put } from "redux-saga/effects";
 
 function* handleListProject() {
@@ -45,7 +45,7 @@ function* handleEditProject(action) {
     const result = yield call(ProjectNameApi.Update, payload);
     yield put(EditProjectSuccess(result.data));
   } catch (error) {
-    yield put(EDIT_PROJECT_FAILED(error));
+    yield put(EditProjectFailed(error.response.data.errors));
   }
 }
 

@@ -59,6 +59,7 @@ const FindProject = (state, action) => {
 const EditProject = (state, action) => {
   return {
     ...state,
+    project: action.payload,
   };
 };
 

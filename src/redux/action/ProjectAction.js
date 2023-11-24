@@ -58,7 +58,7 @@ export const EditProjectSuccess = (payload) => ({
   payload,
 });
 
-export const EDIT_PROJECT_FAILED = (payload) => ({
+export const EditProjectFailed = (payload) => ({
   type: ActionProject.EDIT_PROJECT_FAILED,
   payload,
 });
