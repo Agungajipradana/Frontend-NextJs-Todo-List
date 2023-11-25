@@ -5,9 +5,8 @@ import { EditProjectRequest, FindProjectRequest } from "@/redux/action/ProjectAc
 
 export default function ProjectUpdate(props) {
   const dispatch = useDispatch();
-  const { project } = useSelector((state) => state.projectState);
-
-  console.log(project);
+  const { loading, project } = useSelector((state) => state.projectState);
+  // console.log("Project in Redux store:", project);
 
   useEffect(() => {
     dispatch(FindProjectRequest(props.id));
@@ -17,7 +16,7 @@ export default function ProjectUpdate(props) {
     enableReinitialize: true,
     initialValues: {
       id: props.id,
-      title: project.title || "",
+      title: project?.title || "",
     },
 
     onSubmit: async (values) => {
@@ -34,6 +33,10 @@ export default function ProjectUpdate(props) {
   });
 
   console.log(props.id);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>

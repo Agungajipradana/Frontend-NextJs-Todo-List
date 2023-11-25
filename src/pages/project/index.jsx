@@ -2,7 +2,6 @@ import { UserSignoutRequest } from "@/redux/action/UserAction";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { DeleteProjectRequest, ListProjectRequest } from "@/redux/action/ProjectAction";
 import ProjectCreate from "./ProjectCreate";
@@ -113,8 +112,8 @@ const Project = () => {
               </Link>
             </div>
 
-            {showModal && <ProjectCreate setRefresh={setRefresh} setDisplay={() => setShowModal(false)} formData={formData} />}
-            {displayUpdate && <ProjectUpdate setRefresh={setRefresh} setDisplay={setDisplayUpdate} formData={formData} id={id} />}
+            {showModal && <ProjectCreate setRefresh={setRefresh} setDisplay={() => setShowModal(false)} />}
+            {displayUpdate && <ProjectUpdate setRefresh={setRefresh} setDisplay={setDisplayUpdate} id={id} />}
             <button
               onClick={handleAddProjectClick}
               className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"

@@ -33,6 +33,7 @@ function* handleFindProject(action) {
   const { payload } = action;
   try {
     const result = yield call(ProjectNameApi.FindOne, payload);
+    // console.log("API response in handleFindProject:", result);
     yield put(FindProjectSuccess(result));
   } catch (error) {
     yield put(FindProjectFailed(error));

@@ -20,9 +20,9 @@ const FindOne = async (id) => {
   }
 };
 
-const Update = async (id, payload) => {
+const Update = async (payload) => {
   try {
-    const result = await axiosInstance.put(`/api/project/${id}`, payload);
+    const result = await axiosInstance.put(`/api/project/${payload.id}`, payload);
     return result;
   } catch (error) {
     return error;
