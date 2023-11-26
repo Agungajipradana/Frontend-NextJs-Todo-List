@@ -6,6 +6,7 @@ import Link from "next/link";
 import { DeleteProjectRequest, ListProjectRequest } from "@/redux/action/ProjectAction";
 import ProjectCreate from "./ProjectCreate";
 import ProjectUpdate from "./ProjectUpdate";
+import TaskPage from "./[task]";
 
 const Project = () => {
   const dispatch = useDispatch();
@@ -114,6 +115,7 @@ const Project = () => {
 
             {showModal && <ProjectCreate setRefresh={setRefresh} setDisplay={() => setShowModal(false)} />}
             {displayUpdate && <ProjectUpdate setRefresh={setRefresh} setDisplay={setDisplayUpdate} id={id} />}
+
             <button
               onClick={handleAddProjectClick}
               className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
@@ -235,7 +237,9 @@ const Project = () => {
                         <p className="py-3 px-3 text-sm focus:outline-none leading-none text-red-700 bg-red-100 rounded">{item.createdAt ? item.createdAt : "Error"}</p>
                       </td>
                       <td className="pl-4">
-                        <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">View</button>
+                        <Link href={`/project/${item.id}`}>
+                          <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">Views</button>
+                        </Link>
                       </td>
                       <td>
                         <div className="px-5 pt-2">
