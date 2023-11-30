@@ -1,8 +1,9 @@
 import * as ActionTask from "../constant/TaskConstant";
 
 // List
-export const ListTaskRequest = () => ({
+export const ListTaskRequest = (payload) => ({
   type: ActionTask.LIST_TASK_REQUEST,
+  payload,
 });
 
 export const ListTaskSuccess = (payload) => ({

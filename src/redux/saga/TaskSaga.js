@@ -1,22 +1,34 @@
-import ProjectNameApi from "@/features/project/ProjectNameApi";
 import TaskApi from "@/features/task/TaskApi";
-import { AddProjectFailed, AddProjectSuccess, DeleteProjectFailed, DeleteProjectSuccess, EditProjectFailed, EditProjectSuccess, FindProjectFailed, FindProjectSuccess, ListProjectFailed, ListProjectSuccess } from "../action/ProjectAction";
 import { call, put } from "redux-saga/effects";
+import { AddTaskFailed, AddTaskSuccess, DeleteTaskFailed, DeleteTaskSuccess, EditTaskFailed, EditTaskSuccess, FindTaskFailed, FindTaskSuccess, ListTaskFailed, ListTaskSuccess } from "../action/TaskAction";
 
-function* handleListTask() {
+// function* handleListTask(action) {
+//   const { payload } = action;
+//   try {
+//     const result = yield call(TaskApi.List, payload);
+//     if (result && result.length > 0) {
+//       yield put(ListTaskSuccess(result));
+//     } else {
+//       yield put(ListTaskFailed("Data is undefined"));
+//     }
+//   } catch (error) {
+//     if (error.response && error.response.status === 401) {
+//       yield put(ListTaskFailed("Unauthorized"));
+//     } else if (error.message === "Data is undefined") {
+//       yield put(ListTaskFailed("Data is undefined"));
+//     } else {
+//       yield put(ListTaskFailed(error.message));
+//     }
+//   }
+// }
+
+function* handleListTask(action) {
+  const { payload } = action;
   try {
-    const result = yield call(TaskApi.List);
-    if (result.data !== undefined) {
-      yield put(ListTaskSuccess(result.data));
-    } else {
-      yield put(ListTaskFailed("Data is undefined"));
-    }
+    const result = yield call(TaskApi.List, payload);
+    yield put(ListTaskSuccess(result.data));
   } catch (error) {
-    if (error.response && error.response.status === 401) {
-      yield put(ListTaskFailed("Unauthorized"));
-    } else {
-      yield put(ListTaskFailed(error.message));
-    }
+    yield put(ListTaskFailed(error.message));
   }
 }
 

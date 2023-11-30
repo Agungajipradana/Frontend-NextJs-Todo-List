@@ -36,10 +36,10 @@ const Deleted = async (id) => {
   }
 };
 
-const List = async (id) => {
+const List = async (data) => {
   try {
-    const result = await axiosInstance.get(`/api/project/${id}/task`);
-
+    const result = await axiosInstance.get(`/api/project/${data.id}/task`);
+    console.log(result.data);
     return result.data;
   } catch (error) {
     return error;
